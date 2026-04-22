@@ -17,7 +17,6 @@ print("[INFO] extracting features...")
 data = []
 labels = []
 
-
 for imagePath in paths.list_images("dataset\\training"):
 	digit = imagePath.split("\\")[-2]
 
@@ -26,6 +25,9 @@ for imagePath in paths.list_images("dataset\\training"):
 		cells_per_block=(2, 2), transform_sqrt=True)
 	data.append(H)
 	labels.append(digit)
+
+data_arr = asarray(data)
+pixels = data_arr.flatten().reshape(6000, 784)
 
 print("[INFO] training classifier...")
 
@@ -53,6 +55,9 @@ for imagePath in paths.list_images("dataset\\testing"):
 
 	act_res.append(digit_val)
 	pred_res.append(pred)
+
+print(classification_report(act_res, pred_res))
+
 
 
 print(classification_report(act_res, pred_res))
